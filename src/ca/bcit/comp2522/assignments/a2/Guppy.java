@@ -99,30 +99,20 @@ public class Guppy {
         }
         this.genus =  newGenus.trim().substring(0, 1).toUpperCase()
                 + newGenus.trim().substring(1).toLowerCase();
-        if (newSpecies == null || newSpecies.trim().equals("")) {
-            throw new IllegalArgumentException();
-        }
         species = newSpecies.trim().toLowerCase();
         if (newAgeInWeeks < 0) {
             newAgeInWeeks = 0;
-            throw new IllegalArgumentException();
-        }
-        if (newAgeInWeeks == MAXIMUM_AGE_IN_WEEKS) {
-            throw new IllegalArgumentException();
         }
         ageInWeeks = newAgeInWeeks;
         isFemale = newIsFemale;
         if (newGenerationNumber < 0) {
             newGenerationNumber = 1;
-            throw new IllegalArgumentException();
         }
         generationNumber = newGenerationNumber;
         if (newHealthCoefficient > MAXIMUM_HEALTH_COEFFICIENT) {
             newHealthCoefficient = MAXIMUM_HEALTH_COEFFICIENT;
-            throw new IllegalArgumentException();
         } else if (newHealthCoefficient < MINIMUM_HEALTH_COEFFICIENT) {
             newHealthCoefficient = MINIMUM_HEALTH_COEFFICIENT;
-            throw new IllegalArgumentException();
         }
         healthCoefficient = newHealthCoefficient;
         isAlive = true;
@@ -287,7 +277,8 @@ public class Guppy {
         if (!isFemale || ageInWeeks < minimumAgeForSpawn) {
             return null;
         }
-        if (random.nextDouble() >= fiftyPercentCap) {
+        double percentChance = random.nextDouble();
+        if (percentChance >= fiftyPercentCap) {
             int guppiesToSpawn = random.nextInt(maximumRandomNumberNonInclusive);
             for (int guppyNumber = 0; guppyNumber < guppiesToSpawn; guppyNumber++) {
                 Guppy newGuppy = new Guppy(genus, species, 0, random.nextBoolean(),

@@ -107,10 +107,13 @@ public class Ecosystem {
 
         final Pool skookumchuck = new Pool("Skookumchuck", 3000.0,
                 42.0, 7.9, 0.9);
+        pools.add(skookumchuck);
         final Pool squamish = new Pool("Squamish", 15000.0,
                 39, 7.7, 0.85);
+        pools.add(squamish);
         final Pool semiahmoo = new Pool("Semiahmoo", 4500.0, 37,
                 7.5, 1.0);
+        pools.add(semiahmoo);
         for (int currentGuppy = 0; currentGuppy < skookumchuckStartingPopulation; currentGuppy++) {
             populatePoolsArrayList(ageInWeeksSkookumkoochUpperBound, ageInWeeksPadding,
                     healthCoefficientSkookumkchuckUpperBound,
@@ -129,7 +132,9 @@ public class Ecosystem {
     }
 
     public void simulate(int numberOfWeeks) {
+        setupSimulation();
         for (int weekNumber = 1; weekNumber <= numberOfWeeks; weekNumber++) {
+            System.out.println("Week " + weekNumber + " -----------------------------------------");
             simulateOneWeek();
         }
     }
@@ -149,23 +154,24 @@ public class Ecosystem {
             crowdedOut += pool.adjustForCrowding();
             numberRemoved += pool.removeDeadGuppies();
         }
-        if (diedOfOldAge + starvedToDeath + crowdedOut == numberRemoved) {
-            System.out.println("deaths are equal\n");
-        } else {
-            System.out.println("deaths are not equal\n");
-        }
-        System.out.println("\n\n------------------------------------"
-                + "\nNumber of deaths due to old age: " + diedOfOldAge
+        System.out.println("Number of deaths due to old age: " + diedOfOldAge
                 + "\nNumber of deaths due to starvation: " + starvedToDeath
                 + "\nNumber of deaths due to overcrowding: " + crowdedOut
                 + "\nNumber of total births this week: " + newFry
-                + "\n\n");
+                + "\n");
         int totalPopulation = 0;
         for (Pool pool : pools) {
             System.out.println(pool.getName()
-                    + " Population this week: " + pool.getPopulation() + "\n");
+                    + " Population this week: " + pool.getPopulation());
             totalPopulation += pool.getPopulation();
         }
         System.out.println("Ecosystem Population this week: " + totalPopulation);
+        int numberDied = diedOfOldAge + starvedToDeath + crowdedOut;
+        System.out.println("Number died: " + numberDied + "\nNumber removed: " + numberRemoved);
+        if (numberDied == numberRemoved) {
+            System.out.println("\ndeaths are equal\n");
+        } else {
+            System.out.println("\ndeaths are not equal\n");
+        }
     }
 }
