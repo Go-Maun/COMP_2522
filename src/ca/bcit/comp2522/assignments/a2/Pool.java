@@ -384,20 +384,20 @@ public class Pool {
      * @return the median age of all the guppies
      */
     public double getMedianAge() {
-        int guppyPopulation = this.getPopulation();
-        double totalGuppiesThatAreFemale  = 0.0;
         ArrayList<Integer> guppyAgeArray = new ArrayList<>();
+        final int numberTwo = 2;
         for (Guppy guppy : guppiesInPool) {
             if (guppy.getIsAlive()) {
                 guppyAgeArray.add(guppy.getAgeInWeeks());
             }
         }
         Collections.sort(guppyAgeArray);
-        if (guppyAgeArray.size() % 2 == 0.0) {
-            return (guppyAgeArray.get(guppyAgeArray.size() / 2)
-                    + guppyAgeArray.get((guppyAgeArray.size() / 2) + 1)) / 2;
+        int halfwayPoint = guppyAgeArray.size() / numberTwo;
+        if (guppyAgeArray.size() % numberTwo == 0.0) {
+            return (guppyAgeArray.get(halfwayPoint)
+                    + guppyAgeArray.get(halfwayPoint + 1)) / numberTwo;
         } else {
-            return guppyAgeArray.get((int) Math.floor(guppyAgeArray.size() / 2));
+            return guppyAgeArray.get(halfwayPoint);
         }
     }
 
@@ -439,6 +439,10 @@ public class Pool {
         return deathsDueToAge;
     }
 
+    /**
+     * kills the weakest guppy if the volume is too low.
+     * @return how many guppies died from over crowding
+     */
     public int adjustForCrowding() {
         final double millilitersToLitresConversionNumber = 1000;
         int deathsDueToOverCrowding = 0;
