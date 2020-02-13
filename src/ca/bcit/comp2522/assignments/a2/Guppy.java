@@ -279,18 +279,19 @@ public class Guppy {
      * @return an array of guppy babies.
      */
     public ArrayList<Guppy> spawn() {
+        ArrayList<Guppy> babyGuppies = new ArrayList<>();
         final int minimumAgeForSpawn = 8;
         final int maximumRandomNumberNonInclusive = 101;
-        final int fiftyPercentCap = 50;
+        final double healthDivisionNumber = 2.0;
+        final double fiftyPercentCap = 0.50;
         if (!isFemale || ageInWeeks < minimumAgeForSpawn) {
             return null;
         }
-        ArrayList<Guppy> babyGuppies = new ArrayList<>();
-        if (random.nextInt(maximumRandomNumberNonInclusive) >= fiftyPercentCap) {
+        if (random.nextDouble() >= fiftyPercentCap) {
             int guppiesToSpawn = random.nextInt(maximumRandomNumberNonInclusive);
             for (int guppyNumber = 0; guppyNumber < guppiesToSpawn; guppyNumber++) {
                 Guppy newGuppy = new Guppy(genus, species, 0, random.nextBoolean(),
-                        generationNumber + 1, (1.0 + healthCoefficient) / 2.0);
+                        generationNumber + 1, (1.0 + healthCoefficient) / healthDivisionNumber);
                 babyGuppies.add(newGuppy);
             }
         }
