@@ -385,17 +385,18 @@ public class Pool {
      */
     public double getMedianAge() {
         ArrayList<Integer> guppyAgeArray = new ArrayList<>();
-        final int numberTwo = 2;
+        final double numberTwoDouble = 2.0;
+        final int numberTwoInteger = 2;
         for (Guppy guppy : guppiesInPool) {
             if (guppy.getIsAlive()) {
                 guppyAgeArray.add(guppy.getAgeInWeeks());
             }
         }
         Collections.sort(guppyAgeArray);
-        int halfwayPoint = guppyAgeArray.size() / numberTwo;
-        if (guppyAgeArray.size() % numberTwo == 0.0) {
+        int halfwayPoint = guppyAgeArray.size() / numberTwoInteger;
+        if (guppyAgeArray.size() % numberTwoDouble == 0.0) {
             return (guppyAgeArray.get(halfwayPoint)
-                    + guppyAgeArray.get(halfwayPoint + 1)) / numberTwo;
+                    + guppyAgeArray.get(halfwayPoint + 1)) / numberTwoDouble;
         } else {
             return guppyAgeArray.get(halfwayPoint);
         }
