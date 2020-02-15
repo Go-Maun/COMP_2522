@@ -1,6 +1,7 @@
 package ca.bcit.comp2522.assignments.a2;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 /** the guppy class.
@@ -309,36 +310,34 @@ public class Guppy {
 
     /**
      * the equals method.
-     * @param obj the object to test
-     * @return a boolean
+     *
+     * @param o the object
+     * @return boolean
      */
-    public final boolean equals(Object obj) {
-        if (obj == this) {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
         }
-        if (obj == null || obj.getClass() != this.getClass()) {
+        if (!(o instanceof Guppy)) {
             return false;
         }
-
-        Guppy object = (Guppy) obj;
-
-        if (object.getGenus().equals(this.genus)) {
-            return true;
-        } else if (object.getSpecies().equals(this.species)) {
-            return true;
-        } else if (object.getAgeInWeeks() == this.ageInWeeks) {
-            return true;
-        } else if (object.getIsFemale() == this.isFemale) {
-            return true;
-        } else if (object.getGenerationNumber() == this.generationNumber) {
-            return true;
-        } else if (object.getIsAlive() == this.isAlive) {
-            return true;
-        } else if (object.getHealthCoefficient() == this.healthCoefficient) {
-            return true;
-        } else {
-            return false;
-        }
+        Guppy guppy = (Guppy) o;
+        return getAgeInWeeks() == guppy.getAgeInWeeks()
+                && isFemale == guppy.isFemale
+                && getGenerationNumber() == guppy.getGenerationNumber()
+                && isAlive == guppy.isAlive
+                && Double.compare(guppy.getHealthCoefficient(), getHealthCoefficient()) == 0
+                && getIdentificationNumber() == guppy.getIdentificationNumber()
+                && Objects.equals(getGenus(), guppy.getGenus())
+                && Objects.equals(getSpecies(), guppy.getSpecies())
+                && Objects.equals(random, guppy.random);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getGenus(), getSpecies(), getAgeInWeeks(),
+                isFemale, getGenerationNumber(), isAlive, getHealthCoefficient(),
+                getIdentificationNumber(), random);
+    }
 }

@@ -1,6 +1,7 @@
 package ca.bcit.comp2522.assignments.a2;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 
@@ -106,14 +107,17 @@ public class Ecosystem {
         final int ageInWeeksPaddingSemiahmoo = 15;
 
         final Pool skookumchuck = new Pool("Skookumchuck", 3000.0,
-                42.0, 7.9, 0.9);
+                42.0, 7.9, 0.645);
         pools.add(skookumchuck);
         final Pool squamish = new Pool("Squamish", 15000.0,
-                39, 7.7, 0.85);
+                39, 7.7, 0.645);
         pools.add(squamish);
         final Pool semiahmoo = new Pool("Semiahmoo", 4500.0, 37,
-                7.5, 1.0);
+                7.5, 0.645);
         pools.add(semiahmoo);
+//        final Pool thanos = new Pool("Thanos", 4500.0, 37,
+//                7.5, 0.645);
+//        pools.add(thanos);
         for (int currentGuppy = 0; currentGuppy < skookumchuckStartingPopulation; currentGuppy++) {
             populatePoolsArrayList(ageInWeeksSkookumkoochUpperBound, ageInWeeksPadding,
                     healthCoefficientSkookumkchuckUpperBound,
@@ -173,5 +177,22 @@ public class Ecosystem {
         } else {
             System.out.println("\ndeaths are not equal\n");
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Ecosystem)) {
+            return false;
+        }
+        Ecosystem ecosystem = (Ecosystem) o;
+        return Objects.equals(pools, ecosystem.pools) && Objects.equals(random, ecosystem.random);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pools, random);
     }
 }

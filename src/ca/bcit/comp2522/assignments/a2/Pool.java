@@ -1,10 +1,12 @@
 package ca.bcit.comp2522.assignments.a2;
 
-import java.util.Comparator;
-import java.util.Random;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Iterator;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Objects;
+
 
 /** the pool class.
  *
@@ -410,7 +412,7 @@ public class Pool {
         int totalNumberOfNewGuppies = 0;
         ArrayList<Guppy> allBabies = new ArrayList<>();
         for (Guppy guppy : guppiesInPool) {
-            ArrayList<Guppy> newBabies = new ArrayList<>();
+            ArrayList<Guppy> newBabies;
             if (guppy.getIsAlive()) {
                 newBabies = guppy.spawn();
                 if (newBabies != null) {
@@ -457,6 +459,7 @@ public class Pool {
                 Guppy guppy = iter.next();
                 if (guppy.getIsAlive()) {
                     guppy.setIsAlive(false);
+                    deathsDueToOverCrowding++;
                     currentRequiredWaterVolume -= (guppy.getVolumeNeeded()
                             / millilitersToLitresConversionNumber);
                 }
@@ -478,5 +481,31 @@ public class Pool {
                 + ", guppiesInPool=" + guppiesInPool
                 + ", randomNumberGenerator=" + randomNumberGenerator
                 + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Pool)) {
+            return false;
+        }
+        Pool pool = (Pool) o;
+        return Double.compare(pool.getVolumeLitres(), getVolumeLitres()) == 0
+                && Double.compare(pool.getTemperatureCelsius(), getTemperatureCelsius()) == 0
+                && Double.compare(pool.pH, pH) == 0
+                && Double.compare(pool.getNutrientCoefficient(), getNutrientCoefficient()) == 0
+                && getIdentificationNumber() == pool.getIdentificationNumber()
+                && Objects.equals(getName(), pool.getName())
+                && Objects.equals(guppiesInPool, pool.guppiesInPool)
+                && Objects.equals(randomNumberGenerator, pool.randomNumberGenerator);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getVolumeLitres(), getTemperatureCelsius(), pH,
+                getNutrientCoefficient(), getIdentificationNumber(),
+                guppiesInPool, randomNumberGenerator);
     }
 }
