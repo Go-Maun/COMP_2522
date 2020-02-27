@@ -32,7 +32,7 @@ public class RPNCalculator {
                 perform(operation);
             }
         }
-
+        scanner.close();
         return getResult();
     }
 

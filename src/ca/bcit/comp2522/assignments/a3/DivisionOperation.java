@@ -9,6 +9,6 @@ public class DivisionOperation extends AbstractOperation {
 
     @Override
     public int perform(int operandA, int operandB) {
-        return 0;
+        return operandA / operandB;
     }
 }

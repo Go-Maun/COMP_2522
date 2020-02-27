@@ -38,9 +38,9 @@ public class Stack {
         if (size() == 0) {
             throw new StackUnderflowException("Cannot call Stack.pop() on an empty stack!");
         } else {
-            int temp = stackValues[size()];
+            int temp = stackValues[size() - 1];
             /*this might also not be 100% right*/
-            stackValues[size()] = 0;
+            stackValues[size() - 1] = 0;
             count--;
             return temp;
         }
@@ -50,7 +50,7 @@ public class Stack {
         if (size() == 0) {
             throw new StackUnderflowException("Cannot call Stack.peek() on an empty stack!");
         } else {
-            return stackValues[size()];
+            return stackValues[size() - 1];
         }
     }
 
