@@ -36,6 +36,7 @@ public class Yorkshire extends Dog {
      *
      * @return woof!
      */
+    @Override
     public String speak() {
         return "YAPYAPYAP!";
     }

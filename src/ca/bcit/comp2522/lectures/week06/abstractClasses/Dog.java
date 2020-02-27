@@ -84,4 +84,14 @@ public abstract class Dog {
         Dog otherDog = (Dog) other;
         return name.equals(otherDog.getName());
     }
+
+    /**
+     * Returns a hashCode for this instance of the Dog class.
+     *
+     * @return hashCode as an int.
+     */
+    @Override
+    public int hashCode() {
+        return getName().hashCode();
+    }
 }

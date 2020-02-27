@@ -40,6 +40,7 @@ public class Labrador extends Dog {
      *
      * @return woof!
      */
+    @Override
     public String speak() {
         return "BOW WOW!";
     }
