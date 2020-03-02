@@ -2,11 +2,22 @@ package ca.bcit.comp2522.assignments.a3;
 
 import java.util.Scanner;
 
+/**
+ * the RPNCalculator class.
+ *
+ * @author keegan
+ * @version 2020
+ */
 public class RPNCalculator {
     private static int MIN_STACK_SIZE = 2;
 
     private Stack stack;
 
+    /**
+     * creates an RPNCalculator object.
+     * @param stackSize the size of the stack
+     * @throws IllegalArgumentException if the stackSize is too small
+     */
     public RPNCalculator(int stackSize) throws IllegalArgumentException {
         if (stackSize < MIN_STACK_SIZE) {
             throw new IllegalArgumentException();
@@ -15,6 +26,15 @@ public class RPNCalculator {
         }
     }
 
+    /**
+     * processes the given string formula.
+     * @param formula a string with all numbers and operations
+     * @return the final calculation
+     * @throws IllegalArgumentException thrown when perform does not have an operation object
+     * @throws StackOverflowException thrown when the stack is full
+     * @throws InvalidOperationTypeException thrown when an invalid operation is in getOperation
+     * @throws StackUnderflowException thrown when the stack is empty
+     */
     public int processFormula(final String formula) throws IllegalArgumentException,
             StackOverflowException, InvalidOperationTypeException, StackUnderflowException {
 
@@ -36,6 +56,11 @@ public class RPNCalculator {
         return getResult();
     }
 
+    /**
+     * pushes a value onto the stack.
+     * @param operand the int operand to put onto the stack
+     * @throws StackOverflowException thrown if the stack is full
+     */
     public void push(final int operand) throws StackOverflowException {
         if (stack.unused() == 0) {
             throw new StackOverflowException("The stack is full!");
@@ -43,6 +68,12 @@ public class RPNCalculator {
         stack.push(operand);
     }
 
+    /**
+     * creates an operation object depending on symbol.
+     * @param symbol determines the operation to create
+     * @return an operation object
+     * @throws InvalidOperationTypeException thrown when an invalid operation is handed
+     */
     public Operation getOperation(final char symbol) throws InvalidOperationTypeException {
         Operation operation;
         switch (symbol) {
@@ -64,6 +95,11 @@ public class RPNCalculator {
         return operation;
     }
 
+    /**
+     * gets the result on the stack, stored in the first position.
+     * @return returns the int value
+     * @throws StackUnderflowException thrown of the stack is too small
+     */
     public int getResult() throws StackUnderflowException {
         if (stack.size() == 0) {
             throw new StackUnderflowException("There are no operands!");
