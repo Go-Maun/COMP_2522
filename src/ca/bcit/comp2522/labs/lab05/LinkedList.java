@@ -127,9 +127,10 @@ public class LinkedList {
     /**
      * removes an elements based on the index given.
      * @param index a given index
+     * @return the data of the deleted node
      * @throws IndexOutOfBoundsException if the index is too small or too large
      */
-    public void remove(int index) throws IndexOutOfBoundsException {
+    public Object remove(int index) throws IndexOutOfBoundsException {
         if (index < 0 || index > size()) {
             throw new IndexOutOfBoundsException();
         }
@@ -137,14 +138,18 @@ public class LinkedList {
         Node previousNode = head;
         for (int currentIndex = 0; currentIndex <= index; currentIndex++) {
             if (currentIndex == index && index == 0) {
+                Object returnNodeData = head.getData();
                 head = head.getNext();
+                return returnNodeData;
             } else if (currentIndex == index) {
                 previousNode.setNext(currentNode.getNext());
                 currentNode.setNext(null);
+                return currentNode.getData();
             }
             previousNode = currentNode;
             currentNode = currentNode.getNext();
         }
+        return null;
     }
 
     /**
