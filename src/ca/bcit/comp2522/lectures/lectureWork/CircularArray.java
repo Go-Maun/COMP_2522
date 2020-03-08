@@ -6,14 +6,12 @@ public class CircularArray {
     private int size;
     private int frontPointer;
     private int endPointer;
-    private int length;
     private int[] circleArray;
 
     public CircularArray(int arrayLength) {
         size = arrayLength;
         frontPointer = endPointer = 0;
         endPointer = 0;
-        length = 0;
         circleArray = new int[arrayLength];
     }
 
@@ -26,32 +24,24 @@ public class CircularArray {
     }
 
     private void removeElement() {
-        if (!(size == 0)) {
-            length--;
-            frontPointer = (frontPointer + 1) % size;
+        if (circleArray[frontPointer] != 0) {
             circleArray[frontPointer] = 0;
+            frontPointer = (frontPointer + 1) % size;
         } else {
-            System.out.println("underflow exception");
+            System.out.println("there is nothing to remove");
         }
     }
 
     private void addElement(Scanner scanner) {
-        if (!(size == length)) {
-            length++;
-            endPointer = (endPointer + 1) % size;
-            System.out.println("an int?");
-            try {
-                circleArray[endPointer] = scanner.nextInt();
-                scanner.nextLine();
-            } catch (java.util.InputMismatchException e){
-                System.out.println("youre a fuckin dumbass, like holy shit, who in their " +
-                        "right mind would even THINK to put something that isnt an integer here " +
-                        "like HOLy SHIT I HATE YOU");
-                System.exit(1);
-            }
-        } else {
-            System.out.println("underflow exception");
+        System.out.println("an int?");
+        try {
+            circleArray[endPointer] = scanner.nextInt();
+            scanner.nextLine();
+        } catch (java.util.InputMismatchException e) {
+            System.out.println("Thats a no-no buddy");
+            System.exit(1);
         }
+        endPointer = (endPointer + 1) % size;
     }
 
     private void choose(Scanner scanner) {
@@ -60,10 +50,8 @@ public class CircularArray {
         try {
             choice = scanner.nextInt();
             scanner.nextLine();
-        } catch (java.util.InputMismatchException e){
-            System.out.println("youre a fuckin dumbass, like holy shit, who in their " +
-                    "right mind would even THINK to put something that isnt an integer here " +
-                    "like HOLy SHIT I HATE YOU");
+        } catch (java.util.InputMismatchException e) {
+            System.out.println("Thats a no-no buddy");
             System.exit(1);
         }
         switch (choice) {
@@ -83,7 +71,7 @@ public class CircularArray {
         while (answer == 'y' || answer == 'Y') {
             try {
                 choose(scanner);
-            } catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 System.out.println("bruh, it says 1 or 2, are you dumb?");
                 System.exit(1);
             }
@@ -101,14 +89,12 @@ public class CircularArray {
             try {
                 length = scan.nextInt();
                 scan.nextLine();
-            } catch (java.util.InputMismatchException e){
-                System.out.println("youre a fuckin dumbass, like holy shit, who in their " +
-                        "right mind would even THINK to put something that isnt an integer here " +
-                        "like HOLy SHIT I HATE YOU");
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Thats a no-no buddy");
                 System.exit(1);
             }
             if (length < 2) {
-                System.out.println("not gonna work try again asshole");
+                System.out.println("not gonna work try again");
             }
         }
         CircularArray object = new CircularArray(length);
