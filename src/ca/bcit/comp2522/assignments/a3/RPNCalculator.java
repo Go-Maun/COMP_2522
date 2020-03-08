@@ -9,7 +9,10 @@ import java.util.Scanner;
  * @version 2020
  */
 public class RPNCalculator {
-    private static int MIN_STACK_SIZE = 2;
+    /**
+     * the minimum stack size.
+     */
+    public static int MIN_STACK_SIZE = 2;
 
     private Stack stack;
 
@@ -40,8 +43,10 @@ public class RPNCalculator {
 
         Operation operation;
 
-        if (formula == null || formula.equals("")) {
+        if (formula == null) {
             throw new IllegalArgumentException();
+        } else if (formula.equals("")) {
+            throw new StackUnderflowException();
         }
         Scanner scanner = new Scanner(formula);
         while (scanner.hasNext()) {
@@ -107,7 +112,14 @@ public class RPNCalculator {
         return stack.peek();
     }
 
-    private void perform(final Operation operation) throws IllegalArgumentException,
+    /**
+     * performs math based on the operation given.
+     * @param operation the operation in which to perform the math with
+     * @throws IllegalArgumentException thrown when perform does not have an operation object
+     * @throws StackUnderflowException thrown if the stack is too small
+     * @throws StackOverflowException thrown is the stack is too full
+     */
+    public void perform(final Operation operation) throws IllegalArgumentException,
             StackUnderflowException, StackOverflowException {
 
         if (operation == null) {
