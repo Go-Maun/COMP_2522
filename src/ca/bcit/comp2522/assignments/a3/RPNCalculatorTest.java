@@ -284,4 +284,90 @@ public class RPNCalculatorTest {
         final int actual = calculator.processFormula(input);
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void PrimeSumBothPrimeFirstLargerThanSecond() throws InvalidOperationTypeException, StackUnderflowException, StackOverflowException {
+        calculator = new RPNCalculator(2);
+        final int expected = 17;
+        String input = "7 2 @";
+        final int actual = calculator.processFormula(input);
+        assertEquals(expected,actual);
+    }
+    @Test
+    public void PrimeSumBothPrimeSecondLargerThanFirst() throws InvalidOperationTypeException, StackUnderflowException, StackOverflowException {
+        calculator = new RPNCalculator(2);
+        final int expected = 17;
+        String input = "2 7 @";
+        final int actual = calculator.processFormula(input);
+        assertEquals(expected,actual);
+    }
+    @Test
+    public void PrimeSumOnePrimeOneNegFirstLargerThanSecond() throws InvalidOperationTypeException, StackUnderflowException, StackOverflowException {
+        calculator = new RPNCalculator(2);
+        final int expected = 10;
+        String input = "5 -5 @";
+        final int actual = calculator.processFormula(input);
+        assertEquals(expected,actual);
+    }
+    @Test
+    public void PrimeSumBothNotPrimeOneZero() throws InvalidOperationTypeException, StackUnderflowException, StackOverflowException {
+        calculator = new RPNCalculator(2);
+        final int expected = 0;
+        String input = "1 0 @";
+        final int actual = calculator.processFormula(input);
+        assertEquals(expected,actual);
+    }
+    @Test
+    public void PrimeSumBothPrimeNotOperator() throws InvalidOperationTypeException, StackUnderflowException, StackOverflowException {
+        calculator = new RPNCalculator(2);
+        final int expected = 0;
+        String input = "7 2 +";
+        final int actual = calculator.processFormula(input);
+        assertNotEquals(expected,actual);
+    }
+
+    @Test
+    public void ModulusFirstLargerThanSecondAndDoesntDivideEvenly() throws InvalidOperationTypeException, StackUnderflowException, StackOverflowException {
+        calculator = new RPNCalculator(2);
+        final int expected = 1;
+        String input = "7 2 %";
+        final int actual = calculator.processFormula(input);
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void ModulusSecondLargerThanFirstAndDoesntDivideEvenly() throws InvalidOperationTypeException, StackUnderflowException, StackOverflowException {
+        calculator = new RPNCalculator(2);
+        final int expected = 2;
+        String input = "2 7 %";
+        final int actual = calculator.processFormula(input);
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void ModulusFirstLargerThanSecondAndDividesEvenly() throws InvalidOperationTypeException, StackUnderflowException, StackOverflowException {
+        calculator = new RPNCalculator(2);
+        final int expected = 0;
+        String input = "6 2 %";
+        final int actual = calculator.processFormula(input);
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void ModulusSecondLargerThanFirstAndDividesEvenly() throws InvalidOperationTypeException, StackUnderflowException, StackOverflowException {
+        calculator = new RPNCalculator(2);
+        final int expected = 2;
+        String input = "2 6 %";
+        final int actual = calculator.processFormula(input);
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void ModulusSecondLargerThanFirstAndMoreNumbers() throws InvalidOperationTypeException, StackUnderflowException, StackOverflowException {
+        calculator = new RPNCalculator(3);
+        final int expected = 0;
+        String input = "2 6 4 % %";
+        final int actual = calculator.processFormula(input);
+        assertEquals(expected,actual);
+    }
 }

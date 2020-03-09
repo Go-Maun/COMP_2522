@@ -94,6 +94,12 @@ public class RPNCalculator {
             case '/':
                 operation = new DivisionOperation();
                 break;
+            case '%':
+                operation = new ModulusOperation();
+                break;
+            case '@':
+                operation = new PrimeSumOperation();
+                break;
             default:
                 throw new InvalidOperationTypeException("Invalid Operation Type");
         }
