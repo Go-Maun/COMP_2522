@@ -5,11 +5,12 @@ import java.util.Objects;
 /**
  * the linkedList class.
  *
+ * @param <T> the type of the list.
  * @author keegan
  * @version 2020
  */
-public class LinkedList {
-    private Node head;
+public class LinkedList<T> {
+    private Node<T> head;
 
     /**
      * creates a linked list object.
@@ -22,7 +23,7 @@ public class LinkedList {
      * gets the head of the list.
      * @return returns the current head
      */
-    public Node getHead() {
+    public Node<T> getHead() {
         return head;
     }
 
@@ -30,7 +31,7 @@ public class LinkedList {
      * sets a new head for the list.
      * @param head the new node object to become the head
      */
-    public void setHead(Node head) {
+    public void setHead(Node<T> head) {
         this.head = head;
     }
 
@@ -38,8 +39,8 @@ public class LinkedList {
      * adds a node to the beginning of the list.
      * @param data the node to add to the list
      */
-    public void prepend(Object data) {
-        Node newHead = new Node(data);
+    public void prepend(T data) {
+        Node<T> newHead = new Node<>(data);
         newHead.setNext(head);
         setHead(newHead);
     }
@@ -48,12 +49,12 @@ public class LinkedList {
      * appends a node to the end of the list.
      * @param data the node to add to the list
      */
-    public void append(Object data) {
-        Node iterator = head;
+    public void append(T data) {
+        Node<T> iterator = head;
         while (iterator.getNext() != null) {
             iterator = iterator.getNext();
         }
-        Node newNode = new Node(data);
+        Node<T> newNode = new Node<>(data);
         iterator.setNext(newNode);
     }
 
@@ -63,7 +64,7 @@ public class LinkedList {
      */
     public int size() {
         int counter = 0;
-        Node iterator = head;
+        Node<T> iterator = head;
         while (iterator.getNext() != null) {
             iterator = iterator.getNext();
             counter++;
@@ -88,7 +89,7 @@ public class LinkedList {
         if (index < 0 || index > size()) {
             throw new IndexOutOfBoundsException();
         }
-        Node currentNode = head;
+        Node<T> currentNode = head;
         for (int currentIndex = 0; currentIndex < index; currentIndex++) {
             currentNode = currentNode.getNext();
         }
@@ -101,15 +102,15 @@ public class LinkedList {
      * @param index the index to add
      * @throws IndexOutOfBoundsException id the given index is too small or too large
      */
-    public void add(Object data, int index) throws IndexOutOfBoundsException {
+    public void add(T data, int index) throws IndexOutOfBoundsException {
         if (index < 0 || index > size() + 1) {
             throw new IndexOutOfBoundsException();
         }
-        Node currentNode = head;
-        Node previousNode = head;
+        Node<T> currentNode = head;
+        Node<T> previousNode = head;
         for (int currentIndex = 0; currentIndex <= index; currentIndex++) {
             if (currentIndex == index) {
-                Node newNode = new Node(data);
+                Node<T> newNode = new Node<>(data);
                 if (index != 0 && previousNode != null) {
                     previousNode.setNext(newNode);
                 } else {
@@ -134,8 +135,8 @@ public class LinkedList {
         if (index < 0 || index > size()) {
             throw new IndexOutOfBoundsException();
         }
-        Node currentNode = head;
-        Node previousNode = head;
+        Node<T> currentNode = head;
+        Node<T> previousNode = head;
         for (int currentIndex = 0; currentIndex <= index; currentIndex++) {
             if (currentIndex == index && index == 0) {
                 Object returnNodeData = head.getData();
@@ -176,7 +177,7 @@ public class LinkedList {
         if (!(o instanceof LinkedList)) {
             return false;
         }
-        LinkedList that = (LinkedList) o;
+        LinkedList<?> that = (LinkedList<?>) o;
         return Objects.equals(getHead(), that.getHead());
     }
 

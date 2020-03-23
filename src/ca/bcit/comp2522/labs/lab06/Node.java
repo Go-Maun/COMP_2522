@@ -5,18 +5,19 @@ import java.util.Objects;
 /**
  * The node class.
  *
+ * @param <T> the type of the node.
  * @author keegan
  * @version 2020
  */
-public class Node {
-    private Object data;
-    private Node next;
+public class Node<T> {
+    private T data;
+    private Node<T> next;
 
     /**
      * creates a node object.
      * @param data the object to store in the node
      */
-    public Node(final Object data) {
+    public Node(final T data) {
         this.data = data;
         next = null;
     }
@@ -25,7 +26,7 @@ public class Node {
      * gets the data of the node.
      * @return the data object of the node
      */
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
@@ -33,7 +34,7 @@ public class Node {
      * gets the next nodes address.
      * @return the next nodes address
      */
-    public Node getNext() {
+    public Node<T> getNext() {
         return next;
     }
 
@@ -41,7 +42,7 @@ public class Node {
      * sets the data of the current node.
      * @param data the data to store in the
      */
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 
@@ -49,7 +50,7 @@ public class Node {
      * sets the next node.
      * @param next the next node to set
      */
-    public void setNext(Node next) {
+    public void setNext(Node<T> next) {
         this.next = next;
     }
 
@@ -78,7 +79,7 @@ public class Node {
         if (!(o instanceof Node)) {
             return false;
         }
-        Node node = (Node) o;
+        Node<?> node = (Node<?>) o;
         return Objects.equals(getData(), node.getData())
                 && Objects.equals(getNext(), node.getNext());
     }
