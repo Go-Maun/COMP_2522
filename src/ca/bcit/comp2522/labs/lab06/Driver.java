@@ -3,11 +3,11 @@ package ca.bcit.comp2522.labs.lab06;
 public class Driver {
 
     public static void printList(LinkedList<?> list) {
-        Node<?> iterator = list.getHead();
+        LinkedList.Node<?> iterator = list.getHead();
         boolean end = false;
         while (!end) {
             System.out.print(iterator.getData());
-            System.out.println(" ");
+            System.out.print(", ");
             iterator = iterator.getNext();
             if (iterator == null) {
                 end = true;
@@ -18,7 +18,7 @@ public class Driver {
 
     public static void main(String[] args) {
         LinkedList<Integer> list = new LinkedList<>();
-        Node<Integer> newHead = new Node<>(0);
+        LinkedList.Node<Integer> newHead = new LinkedList.Node<>(0);
         list.setHead(newHead);
         printList(list);
         list.append(1);
@@ -32,15 +32,14 @@ public class Driver {
         list.add(4, 3);
         printList(list);
         list.add(5,  0);
-        System.out.println(list.size());
-        System.out.println();
+        System.out.printf("the size is %s\n", list.size());
         printList(list);
         list.remove(0);
         printList(list);
         list.remove(3);
         printList(list);
         list.clear();
-        Node<Integer> head = new Node<>(4);
+        LinkedList.Node<Integer> head = new LinkedList.Node<>(4);
         list.setHead(head);
         printList(list);
     }
