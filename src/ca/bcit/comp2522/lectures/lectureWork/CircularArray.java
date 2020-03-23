@@ -7,6 +7,7 @@ public class CircularArray {
     private int frontPointer;
     private int endPointer;
     private int[] circleArray;
+    private static boolean isStart = true;
 
     public CircularArray(int arrayLength) {
         size = arrayLength;
@@ -25,6 +26,9 @@ public class CircularArray {
 
     private void removeElement() {
         if (circleArray[frontPointer] != 0) {
+            if (endPointer == frontPointer) {
+                frontPointer = (frontPointer + 1) % size;
+            }
             circleArray[frontPointer] = 0;
             frontPointer = (frontPointer + 1) % size;
         } else {
