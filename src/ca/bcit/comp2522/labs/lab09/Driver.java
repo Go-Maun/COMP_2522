@@ -79,7 +79,7 @@ public class Driver {
             for (int j = 0; j < arrayElements; j++) {
                 array[j] = random.nextInt(TEN_MILLION);
             }
-            time += sort.logarithmicSort(array, 0, array.length - 1);
+            time += sort.runLogSorting(array, 0, array.length - 1);
         }
         System.out.println("time to run 10 logarithmic sorting on length 10 arrays: " + time);
         System.out.println("average time to run logarithmic sort on length "
@@ -116,5 +116,6 @@ public class Driver {
 
         runQuadratic(random, sort, TEN_MILLION);
         runLogarithmic(random, sort, TEN_MILLION);
+
     }
 }

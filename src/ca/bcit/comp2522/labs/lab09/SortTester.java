@@ -38,16 +38,27 @@ public class SortTester {
      * @param array the array to sort.
      * @param low the lowest index.
      * @param high the highest index.
-     * @return the time it took to run the function.
      */
-    public long logarithmicSort(int[] array, int low, int high) {
-        long beginning = System.nanoTime();
+    public void logarithmicSort(int[] array, int low, int high) {
         if (low < high) {
             int pi = partition(array, low, high);
 
             logarithmicSort(array, low, pi - 1);
             logarithmicSort(array, pi + 1, high);
         }
+    }
+
+    /**
+     * Times the logarithmic sorting algorithm.
+     *
+     * @param array the array to sort.
+     * @param low the lowest index.
+     * @param high the highest index.
+     * @return the time it took to run the function.
+     */
+    public long runLogSorting(int[] array, int low, int high) {
+        long beginning = System.nanoTime();
+        logarithmicSort(array, low, high);
         return System.nanoTime() - beginning;
     }
 
