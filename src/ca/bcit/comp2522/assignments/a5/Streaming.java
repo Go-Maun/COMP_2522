@@ -33,6 +33,7 @@ public class Streaming {
      * that Arrays.Stream() returns and use .boxed() to create a Stream<Integer> object.
      */
 
+    /* generates a List<Character> filled with random letters */
     private static List<Character> words() {
         final int alphabetLetterCount = 26;
         final int loopBound = 30;
@@ -43,17 +44,20 @@ public class Streaming {
         return randomCharacters;
     }
 
+    /* sorts a List<Character> in ascending order */
     private static List<Character> ascendingSort(List<Character> list) {
         return list.stream().sorted()
                 .collect(Collectors.toList());
     }
 
+    /* sorts a List<Character> in descending order */
     private static List<Character> descendingSort(List<Character> list) {
         return list.stream()
                 .sorted(Comparator.reverseOrder())
                 .collect(Collectors.toList());
     }
 
+    /* sorts a List<Character> in descending order with no duplicates */
     private static List<Character> descendingSortNoDuplicates(List<Character> list) {
         return list.stream()
                 .distinct()
@@ -61,6 +65,11 @@ public class Streaming {
                 .collect(Collectors.toList());
     }
 
+    /* Demonstrates how intermediate operations in streams are
+    *  lazy by creating a Stream<String> object and calling only
+    *  intermediate operations on it, then creating a print statement
+    *  and then calling the terminal operation, which runs the
+    *  streams created by the intermediate operations. */
     private static void lazyStream(List<String> strings) {
         final int moreThan = 10;
         Stream<String> newStrings = strings.stream()
@@ -71,6 +80,7 @@ public class Streaming {
         newStrings.forEach(System.out::println);
     }
 
+    /* The initial characterStream given in the lab document */
     private static Stream<Character> characterStream(String input) {
         List<Character> result = new ArrayList<>();
         for (char c : input.toCharArray()) {
@@ -79,6 +89,7 @@ public class Streaming {
         return result.stream();
     }
 
+    /* a more optimized version of characterStream */
     private static Stream<Character> characterStreamOptimized(String input) {
         return input.chars().mapToObj(c -> (char) c);
     }
