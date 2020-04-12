@@ -3,7 +3,7 @@ package ca.bcit.comp2522.assignments.a5;
 import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -14,6 +14,7 @@ import java.util.Random;
  */
 public class Ball extends Circle implements Runnable {
 
+    private static ArrayList<Ball> ballStorage = new ArrayList<>();
     private static final Random generator = new Random();
 
     private final int MAX_X = 500; // horizontal edge of enclosing Panel
@@ -32,8 +33,9 @@ public class Ball extends Circle implements Runnable {
         super(10, Color.RED);
         this.setCenterX(xPosition);
         this.setCenterY(yPosition);
-        dx = generator.nextInt(5); // change in x (0 - 4 pixels)
-        dy = generator.nextInt(5); // change in y (0 - 4 pixels)
+        dx = generator.nextInt(5) + 1; // change in x (1 - 5 pixels)
+        dy = generator.nextInt(5) + 1; // change in y (1 - 5 pixels)
+        ballStorage.add(this);
     }
 
     /**
@@ -57,14 +59,27 @@ public class Ball extends Circle implements Runnable {
                Platform.runLater can be used to execute those updates on the
                JavaFX application thread.
              */
-            Platform.runLater( () -> {
+            Platform.runLater(() -> {
                 // if bounce off top or bottom of Panel
-                if (this.getCenterY() <= 0 || this.getCenterY() >= MAX_Y)
+                if (this.getCenterY() <= 0 || this.getCenterY() >= MAX_Y) {
                     dy *= -1; // reverses velocity in y direction
+                }
 
                 // if bounce off left or right of Panel
-                if (this.getCenterX() <= 0 || this.getCenterX() >= MAX_X)
+                if (this.getCenterX() <= 0 || this.getCenterX() >= MAX_X) {
                     dx *= -1; // reverses velocity in x direction
+                }
+
+                for (Ball ball : ballStorage) {
+                    if (this.intersects(ball.getBoundsInLocal()) && this != ball) {
+                        int tempX = ball.dx;
+                        int tempY = ball.dy;
+                        ball.dx = this.dx;
+                        ball.dy = this.dy;
+                        this.dx = tempX;
+                        this.dy = tempY;
+                    }
+                }
 
                 this.setCenterX(this.getCenterX() + dx); // determines new x-position
                 this.setCenterY(this.getCenterY() + dy); // determines new y-position

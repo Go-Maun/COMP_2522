@@ -3,17 +3,34 @@ package ca.bcit.comp2522.assignments.a5;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * BouncingBalls, an introduction to threading and JavaFX.
  *
  * @author BCIT
- * @author YOUR NAME GOES HERE
+ * @author Keegan Maundrell
  * @version 2020
  */
 public class BouncingBalls extends Application {
+
+    private Random random = new Random();
+
+    public void populate(int numOfBalls, Pane canvas) {
+        for (int i = 0; i < numOfBalls; i++) {
+            Ball ball = new Ball(random.nextInt(460) + 20,
+                    random.nextInt(460) + 20);
+            canvas.getChildren().add(ball);
+            Thread bouncer = new Thread(ball);
+            bouncer.setDaemon(true);
+            bouncer.start();
+        }
+    }
 
     /**
      * Demonstrates threading in JavaFX.
@@ -22,17 +39,20 @@ public class BouncingBalls extends Application {
     public void start(Stage primaryStage) {
         Pane canvas = new Pane();
         Scene scene = new Scene(canvas, 500, 500);
-        Ball ball = new Ball(250, 250);
 
-        canvas.getChildren().add(ball);
 
         primaryStage.setTitle("Threads and Balls");
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        Thread bouncer = new Thread(ball);
-        bouncer.setDaemon(true);
-        bouncer.start();
+        TextField area = new TextField("10");
+        canvas.getChildren().add(area);
+        area.setOnAction(e -> {
+            int numOfBalls = Integer.parseInt(area.getText());
+            populate(numOfBalls, canvas);
+            canvas.getChildren().remove(area);
+        });
+
     }
 
     /**
